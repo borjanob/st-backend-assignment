@@ -1,5 +1,8 @@
+
+@Service
 class ItemService{
 
+    @Autowired
     private final ItemRepository itemRepository;
 
     ClientService(ItemRepository itemRepository) {

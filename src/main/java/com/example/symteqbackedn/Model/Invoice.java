@@ -1,9 +1,12 @@
 
 @Entity
+@Data
 class Invoice
 {
     @Id
     private @GeneratedValue(strategy = GenerationType.IDENTITY) long Id;
+
+    private @GeneratedValue(strategy = GenerationType.IDENTITY) long invoiceNumber
 
     @ManyToMany
     private List<Item> itemsList;
@@ -13,11 +16,14 @@ class Invoice
 
     private float totalAmount;
 
-    Invoice(List<Item> itemsList, Client client, float totalAmount)
+    private Date dueDate;
+
+    Invoice(List<Item> itemsList, Client client, float totalAmount, Date date)
     {
         this.itemsList = itemsList;
         this.client = client;
         this.totalAmount = totalAmount;
+        this.dueDate = date;
     }
 
     public List<Item> getItemsList() {
@@ -34,5 +40,13 @@ class Invoice
 
     public long getId() {
         return Id;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public long getInvoiceNumber() {
+        return invoiceNumber;
     }
 }

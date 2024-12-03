@@ -1,5 +1,6 @@
-// COULD NOT RESOLVE DEPENDENCIES DOWNLOAD WAS TAKING TOO LONG
+// COULD NOT RESOLVE DEPENDENCIES DOWNLOAD DIDNT FINISH
 //
+
 
 @RestController
 class InvoiceController
@@ -29,18 +30,23 @@ class InvoiceController
     @DeleteMapping("/delete/{id}")
     void deleteInvoice(@PathVariable long id )
     {
-        invoiceService.delete(id)
+        try{
+            invoiceService.delete(id)
+        }
+        catch (Exception e)
+        {
+            System.out.println("Invoice with id: "+ id +" not present in db");
+        }
     }
 
 
     // UNIQUE INVOICE ID IS AUTO GENERATED
     @PostMapping("/create")
     Invoice createInvoice(@RequestParam Client client, @RequestParam List<Item> itemList, @RequestParam float totalAmount,
-                       @RequestParam LocalDate date)
+                       @RequestParam Date date)
     {
-        Invoice invoice = new Invoice(itemList,client,totalAmount);
-        invoiceService.create(invoice);
-        return invoice;
+
+        return invoiceService.create(itemList,client,totalAmount,date);
     }
 
 
@@ -55,9 +61,9 @@ class InvoiceController
             invoice = invoiceService.get(id);
             invoiceService.update(id,client,itemList,totalAmount);
         }
-        catch (e)
+        catch (Exception e)
         {
-            System.out.println("Invoice Id doesnt exist in db!");
+            System.out.println("Invoice with id: "+ id +" not present in db");
         }
         return invoice;
     }
@@ -70,7 +76,7 @@ class InvoiceController
         try{
             invoiceList = invoiceService.getByClientName(name);
         }
-        catch (e)
+        catch (Exception e)
         {
             System.out.println("No invoices for that client");
         }
@@ -78,5 +84,19 @@ class InvoiceController
 
     }
 
+    @GetMapping("/search/{invoice_number}")
+    Invoice searchByInvoiceNumber(@PathVariable long invoiceNumber)
+    {
+        Invoice invoice = null;
 
+        try{
+            invoice = invoiceService.getByInvoiceNumber(name);
+        }
+        catch (Exception e)
+        {
+            System.out.println("No invoices with invoice number: " + invoiceNumber);
+        }
+        return invoice;
+
+    }
 }

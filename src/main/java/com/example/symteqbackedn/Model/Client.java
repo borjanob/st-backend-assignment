@@ -1,5 +1,6 @@
 
 @Entity
+@Data
 class Client
 {
 

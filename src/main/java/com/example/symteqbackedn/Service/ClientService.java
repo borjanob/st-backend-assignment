@@ -1,5 +1,8 @@
+
+@Service
 class ClientService
 {
+    @Autowired
     private final ClientRepository clientRepository;
 
     ClientService(ClientRepository clientRepository) {

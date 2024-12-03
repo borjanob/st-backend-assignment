@@ -3,9 +3,9 @@ package com.example.symteqbackedn;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// COULD NOT RESOLVE DEPENDENCIES DOWNLOAD WAS TAKING TOO LONG
-//
+// COULD NOT RESOLVE DEPENDENCIES DOWNLOAD DIDT FINIH
 
+// SORTING LOGIC IS IN INVOICE SERVICE
 
 
 @SpringBootApplication
